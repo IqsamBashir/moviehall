@@ -1,0 +1,87 @@
+ (function () {
+        let movie__search = document.querySelector('#movie__search');
+        
+      
+        
+        // Create an XMLHttp Request Object
+        let xhr = new XMLHttpRequest();
+        let params = new URLSearchParams(location.search);
+        let id  = params.get('id');
+        if (!id)
+        {
+            window.location.href = "ajaxwithapi.html";
+        }
+    
+    
+        xhr.open('GET', "https://api.themoviedb.org/3/movie/"+id+"/videos?api_key=90787843a200cfbfd55b14b39270f6a1", true);
+    
+    
+    
+        // Send the request
+    
+        xhr.send();
+    
+    
+        
+    
+        //when data loads returns data in text
+        xhr.addEventListener('load', function () {
+            let data = JSON.parse(xhr.responseText);
+            // console.log("2nd data");
+            // console.log(data);
+            let html = '';
+            for (var i = 0; i < data['results'].length; i++) {
+                html += `
+                    <div class="card" >
+                    <iframe width="420" height="345" src="https://www.youtube.com/embed/${data['results'][i]['key']}">
+                    </iframe>
+                        
+                    </div>
+        
+             
+                    
+                    `;
+    
+    
+    
+    
+    
+    
+                }
+                
+            
+                    
+    
+                movie__search.insertAdjacentHTML('beforeend', html)
+    
+            console.log(data);
+          
+        });
+    
+       
+    
+    
+            
+            
+            
+            
+              
+                
+           
+        
+    
+        
+    
+       
+    
+    
+    
+    
+    
+    
+    })();
+
+
+
+
+    https://developers.themoviedb.org/3/search/search-movies
